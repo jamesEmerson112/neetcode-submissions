@@ -13,6 +13,8 @@ The practical consequence is that editing a file here does not change anything o
 authoritative copy of a solution lives upstream; this repo is the record of what was submitted.
 Treat existing files as an append-only history of attempts rather than source to be maintained.
 
+For context, we have solved successfully 53 problems
+
 ## Layout and file naming
 
 ```

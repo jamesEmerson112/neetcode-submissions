@@ -33,12 +33,50 @@
 // cannot borrow `visited` mutably and also call itself. Use a free function (or
 // an associated fn) that takes `visited: &mut Vec<Vec<bool>>` as a parameter.
 
+use std::{collections::HashSet, io::SeekFrom::Current};
+
 pub struct Solution;
 
 impl Solution {
     #[allow(unused_variables)] // remove once implemented
     pub fn count_paths(&self, floor_plan: Vec<Vec<i32>>) -> i32 {
-        todo!("backtracking DFS: step onto a square, recurse on the 4 neighbours, step back off")
+        // create a set here
+        let mut visited: HashSet<(isize, isize)> = HashSet::new();
+
+        fn dfs(
+            floor_plan: &Vec<Vec<i32>>,
+            visited: &mut HashSet<(isize, isize)>,
+            r: isize,
+            c: isize 
+        ) -> i32 {
+            if r < 0 
+                || r >= floor_plan.len() as isize
+                || c < 0 || c >= floor_plan[0].len() as isize
+                || floor_plan[r as usize][c as usize] == 1
+                || visited.contains(&(r,c))
+            {
+                return 0
+            }
+
+            if r == (floor_plan.len() as isize) - 1 
+                && c == (floor_plan[0].len() as isize) - 1 {
+                return 1;
+            }
+
+            visited.insert((r, c));
+
+            let paths = 
+                dfs(floor_plan, visited,r + 1, c)
+                + dfs(floor_plan, visited, r - 1, c)
+                + dfs(floor_plan, visited, r, c - 1)
+                + dfs(floor_plan, visited,r , c + 1);
+
+            visited.remove(&(r, c));
+
+            paths
+        }
+
+        return dfs(&floor_plan, &mut visited, 0, 0)
     }
 }
 
