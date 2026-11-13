@@ -3,3 +3,6 @@
 
 #[path = "../matrix-depth-first-search/submission-0.rs"]
 pub mod matrix_depth_first_search;
+
+#[path = "../matrixBFS/submission-0.rs"]
+pub mod matrix_bfs;
